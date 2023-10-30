@@ -3,7 +3,6 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-
 #     +------+-------+------------------------+
 # | Item | Price | Special offers         |
 # +------+-------+------------------------+
@@ -13,7 +12,6 @@ def checkout(skus):
 # | D    | 15    |                        |
 # | E    | 40    | 2E get one B free      |
 # +------+-------+------------------------+
-#special offer (quantity of item, price/another item?)
     price_table_and_offers = {
         "A": {"price": 50, "special_offers": [(3, 130), (5,200)]},
         "B": {"price": 30, "special_offer": (2, 45)},
@@ -46,7 +44,7 @@ def checkout(skus):
                     total_checkout_cost += special_count * special_deal
                     special_remainder_count = quantity % special_quant
             elif "special_offer" in item_info:
-                special_quant, special_deal = item_info["special_offers"]
+                special_quant, special_deal = item_info["special_offer"]
                 special_count = quantity // special_quant
                 total_checkout_cost += special_count * special_deal
                 special_remainder_count = quantity % special_quant
@@ -77,18 +75,3 @@ def checkout(skus):
             total_checkout_cost -= (free_bs * price_table_and_offers["B"]["price"])
     
     return total_checkout_cost
-
-    # for item, quantity in special_offer_items.items():
-    #     item_info = price_table_and_offers[item]
-    #     special_quant, special_deal = item_info["special_offers"]
-    #     if special_quant == 2 and special_deal == "B":
-    #         item_price = item_info["price"]
-    #         b_count = special_offer_items.get("B", 0)
-    #         e_count = quantity // 2
-    #         free_bs = min(b_count,e_count)
-    #         total_checkout_cost += (quantity - free_bs) * item_price
-
-    
-    # return total_checkout_cost
-
-
