@@ -15,37 +15,46 @@ def checkout(skus):
 # +------+-------+------------------------+
 #special offer (quantity of item, price/another item?)
     price_table_and_offers = {
-        "A": {"price": 50, "special_offers": (3, 130)},
-        "B": {"price": 30, "special_offers": (2, 45)},
+        "A": {"price": 50, "special_offers": [(3, 130), (5,200)]},
+        "B": {"price": 30, "special_offer": (2, 45)},
         "C": {"price": 20},
         "D": {"price": 15},
-        "E": {"price": 40, "special_offers": (2, "B")}
+        "E": {"price": 40, "special_offer": (2, "B")}
     }
 
     total_checkout_cost = 0
-    # quantity_count = {}
-    special_offer_items = {}
-
-    # for item in skus:
-    #     if item in price_table_and_offers:
-    #         if item in quantity_count:
-    #             quantity_count[item] += 1
-    #         else:
-    #             quantity_count[item] = 1
-    #     else:
-    #         return -1
+    quantity_count = {}
+    # special_offer_items = {}
 
     for item in skus:
-        item_info = price_table_and_offers[item]
-        item_price = item_info["price"]
-
-        if "special_offers" in item_info:
-            special_quant, special_deal = item_info["special_offers"]
-            if special_quant == 2 and special_deal == "B":
-                special_offer_items["E"] = special_offer_items.get("E", 0)+1
+        if item in price_table_and_offers:
+            if item in quantity_count:
+                quantity_count[item] += 1
             else:
+                quantity_count[item] = 1
+        else:
+            return -1
+
+    for item, quantity in quantity_count.items():
+        if item in price_table_and_offers:
+            item_info = price_table_and_offers[item]
+            item_price = item_info["price"]
+
+            if "special_offers" in item_info:
+                for special_quant, special_deal in item_info["special_offers"]:
+                    special_count = quantity // special_quant
+                    total_checkout_cost += special_count * special_deal
+            elif "special_offer" in item_info:
                 special_quant, special_deal = item_info["special_offers"]
-                special_offer_items[item] = special_offer_items.get(item, 0)+1
+                special_count = quantity // special_quant
+                total_checkout_cost += special_count * special_deal
+            
+            total_checkout_cost += 
+                # if special_quant == 2 and special_deal == "B":
+                #     special_offer_items["E"] = special_offer_items.get("E", 0)+1
+                # else:
+                #     special_quant, special_deal = item_info["special_offers"]
+                #     special_offer_items[item] = special_offer_items.get(item, 0)+1
 
 
             # special_count = quantity // special_quant
@@ -69,3 +78,4 @@ def checkout(skus):
 
     
     return total_checkout_cost
+
