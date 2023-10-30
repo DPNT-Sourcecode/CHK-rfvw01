@@ -44,12 +44,14 @@ def checkout(skus):
                 for special_quant, special_deal in item_info["special_offers"]:
                     special_count = quantity // special_quant
                     total_checkout_cost += special_count * special_deal
+                    special_remainder_count = quantity % special_quant
             elif "special_offer" in item_info:
                 special_quant, special_deal = item_info["special_offers"]
                 special_count = quantity // special_quant
                 total_checkout_cost += special_count * special_deal
-            
-            total_checkout_cost += 
+                special_remainder_count = quantity % special_quant
+
+            total_checkout_cost += special_remainder_count * item_price
                 # if special_quant == 2 and special_deal == "B":
                 #     special_offer_items["E"] = special_offer_items.get("E", 0)+1
                 # else:
@@ -64,18 +66,29 @@ def checkout(skus):
             # total_checkout_cost += special_remainder_count * item_price
         
         else:
-            total_checkout_cost += item_price
-
-    for item, quantity in special_offer_items.items():
-        item_info = price_table_and_offers[item]
-        special_quant, special_deal = item_info["special_offers"]
-        if special_quant == 2 and special_deal == "B":
-            item_price = item_info["price"]
-            b_count = special_offer_items.get("B", 0)
-            e_count = quantity // 2
-            free_bs = min(b_count,e_count)
-            total_checkout_cost += (quantity - free_bs) * item_price
-
+            return -1
+        
+    if "E" in quantity_count and "B" in quantity_count:
+        b_count = quantity_count["E"]
+        e_count = quantity_count["B"]
+        free_bs = e_count // 2
+        
+        if free_bs <= b_count:
+            total_checkout_cost -= (free_bs * price_table_and_offers["B"]["price"])
     
     return total_checkout_cost
+
+    # for item, quantity in special_offer_items.items():
+    #     item_info = price_table_and_offers[item]
+    #     special_quant, special_deal = item_info["special_offers"]
+    #     if special_quant == 2 and special_deal == "B":
+    #         item_price = item_info["price"]
+    #         b_count = special_offer_items.get("B", 0)
+    #         e_count = quantity // 2
+    #         free_bs = min(b_count,e_count)
+    #         total_checkout_cost += (quantity - free_bs) * item_price
+
+    
+    # return total_checkout_cost
+
 
