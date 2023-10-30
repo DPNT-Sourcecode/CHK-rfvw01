@@ -11,18 +11,18 @@ def checkout(skus):
     }
 
     total_checkout_cost = 0
-    quantity = {}
+    quantity_count = {}
 
     for item in skus:
         if item in price_table_and_offers:
-            if item in quantity:
-                quantity[item] += 1
+            if item in quantity_count:
+                quantity_count[item] += 1
             else:
-                quantity[item] = 1
+                quantity_count[item] = 1
         else:
             return -1
 
-    for item, quantity in quantity.items():
+    for item, quantity in quantity_count.items():
         item_info = price_table_and_offers[item]
         item_price = item_info["price"]
 
@@ -38,3 +38,4 @@ def checkout(skus):
             total_checkout_cost += quantity * item_price
     
     return total_checkout_cost
+
