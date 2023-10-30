@@ -14,10 +14,10 @@ def checkout(skus):
 # +------+-------+------------------------+
     price_table_and_offers = {
         "A": {"price": 50, "special_offers": [(3, 130), (5,200)]},
-        "B": {"price": 30, "special_offers": (2, 45)},
+        "B": {"price": 30, "special_offer": (2, 45)},
         "C": {"price": 20},
         "D": {"price": 15},
-        "E": {"price": 40, "special_offers": (2, "B")}
+        "E": {"price": 40, "special_offer": (2, "B")}
     }
 
     total_checkout_cost = 0
@@ -43,13 +43,15 @@ def checkout(skus):
                     special_count = quantity // special_quant
                     total_checkout_cost += special_count * special_deal
                     special_remainder_count = quantity % special_quant
+                    total_checkout_cost += special_remainder_count * item_price
             elif "special_offer" in item_info:
                 special_quant, special_deal = item_info["special_offer"]
                 special_count = quantity // special_quant
                 total_checkout_cost += special_count * special_deal
                 special_remainder_count = quantity % special_quant
-
-            total_checkout_cost += special_remainder_count * item_price
+                total_checkout_cost += special_remainder_count * item_price
+            else:
+                total_checkout_cost += quantity * item_price
                 # if special_quant == 2 and special_deal == "B":
                 #     special_offer_items["E"] = special_offer_items.get("E", 0)+1
                 # else:
@@ -75,3 +77,4 @@ def checkout(skus):
             total_checkout_cost -= (free_bs * price_table_and_offers["B"]["price"])
     
     return total_checkout_cost
+
