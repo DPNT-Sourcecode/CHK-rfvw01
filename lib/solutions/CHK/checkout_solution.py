@@ -19,6 +19,7 @@ def checkout(skus = "ABDCEE"):
         "D": {"price": 15},
         "E": {"price": 40, "special_offer": (2, "B")}
     }
+    print(price_table_and_offers)
 
     total_checkout_cost = 0
     quantity_count = {}
@@ -78,4 +79,5 @@ def checkout(skus = "ABDCEE"):
             total_checkout_cost -= (free_bs * price_table_and_offers["B"]["price"])
     
     return total_checkout_cost
+
 
