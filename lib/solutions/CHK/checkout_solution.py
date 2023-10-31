@@ -77,4 +77,3 @@ def checkout(skus):
             total_checkout_cost -= (free_bs * price_table_and_offers["B"]["price"])
     
     return total_checkout_cost
-
