@@ -2,7 +2,7 @@
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def checkout(skus = "ABDCEE"):
+def checkout(skus):
 #     +------+-------+------------------------+
 # | Item | Price | Special offers         |
 # +------+-------+------------------------+
@@ -79,5 +79,6 @@ def checkout(skus = "ABDCEE"):
             total_checkout_cost -= (free_bs * price_table_and_offers["B"]["price"])
     
     return total_checkout_cost
+
 
 
