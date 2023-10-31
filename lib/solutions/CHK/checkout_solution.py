@@ -44,6 +44,7 @@ def checkout(skus = "ABDCEE"):
                     total_checkout_cost += special_count * special_deal
                     special_remainder_count = quantity % special_quant
                     total_checkout_cost += special_remainder_count * item_price
+                    print(total_checkout_cost)
             elif "special_offer" in item_info:
                 special_quant, special_deal = item_info["special_offer"]
                 special_count = quantity // special_quant
@@ -77,3 +78,4 @@ def checkout(skus = "ABDCEE"):
             total_checkout_cost -= (free_bs * price_table_and_offers["B"]["price"])
     
     return total_checkout_cost
+
