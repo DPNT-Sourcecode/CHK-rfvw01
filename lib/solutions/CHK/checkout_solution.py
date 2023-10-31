@@ -2,7 +2,7 @@
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def checkout(skus = "ABDJHD"):
+def checkout(skus):
 #     +------+-------+------------------------+
 # | Item | Price | Special offers         |
 # +------+-------+------------------------+
@@ -19,7 +19,6 @@ def checkout(skus = "ABDJHD"):
         "D": {"price": 15},
         "E": {"price": 40, "special_offer": (2, "B")}
     }
-    print(price_table_and_offers)
 
     total_checkout_cost = 0
     quantity_count = {}
@@ -45,7 +44,6 @@ def checkout(skus = "ABDJHD"):
                     total_checkout_cost += special_count * special_deal
                     special_remainder_count = quantity % special_quant
                     total_checkout_cost += special_remainder_count * item_price
-                    print(total_checkout_cost)
             elif "special_offer" in item_info:
                 special_quant, special_deal = item_info["special_offer"]
                 special_count = quantity // special_quant
